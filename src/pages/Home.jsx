@@ -1,5 +1,7 @@
+import '../css/Home.css'
 import React, { useMemo, useEffect, useState } from 'react'
 import Slider from "react-slick";
+import HomeLink from '../components/HomeLink';
 
 const Home = () => {
   const [time, setTime] = useState(new Date());
@@ -51,16 +53,30 @@ const Home = () => {
 
   return (
     <div>
-        {/* 현재 시간 출력,
-        이때 time 인스턴스에서 getDate 등 메서드를 같이 쓸 수 있다. */}
-
-        <h1>{printClock()}</h1>
-        <p>{printWord.text}</p>
-        <p>{printWord.author}</p>
-
+        <div>
         <Slider {...settings}>
-          {imageList.map((image) => (<div><img style={{width: "100%"}} src={require(`../img/${image}`)} alt="" /></div>))}
+          {/* {imageList.map((image) => (<div><img style={{width: "100%"}} src={require(`../img/${image}`)} alt="" /></div>))} */}
+          {imageList.map((image)=>( 
+            /* 컨테이너 요소 하나 차이 때문에 배경이 화면에 안 보이게 됐다? */
+                <div>
+                  <div 
+                    style={{
+                      width:"100%", 
+                      height:"100vh",
+                      backgroundImage : 'url('+require("../img/"+image)+')',
+                      backgroundSize : "cover"
+                    }}>
+                    </div>
+                </div>))}
         </Slider>
+        </div>
+        <div className='home-main'>
+          <h1>{printClock()}</h1>
+          <p>{printWord.text}</p>
+          <p>{printWord.author}</p>
+        </div>
+
+        <HomeLink></HomeLink>
     </div>
   )
 }

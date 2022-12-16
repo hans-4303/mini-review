@@ -1,0 +1,29 @@
+.home-main {
+    width: 100%;
+    position: fixed;
+    top : 30%;
+    text-align: center;
+}
+
+.home-main h1 {
+    font-size: 3em;
+}
+
+.home-main p {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.home-link {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.home-link a {
+    text-decoration: none;
+    color: black;
+    margin: 0px 10px;
+}

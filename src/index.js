@@ -5,6 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+/* 웹을 사용할 때 파이어베이스를 들고 오기 위해 import */
+/* import { app } from './database/firebase'; */
+
+/* 앱 전역에서 계속 실행되게 해주려면?
+
+js, css를 들고 올 때 파일 전체를 import 해오는 경우,
+전체 파일에 내용이 적용될 수 있다고?
+-> 아마 최상위인 App.js나 index.js라서 해당되는 것 아닐까 */
+import './database/firebase'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>

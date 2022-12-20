@@ -24,7 +24,7 @@ function currentUser(state = initialState, action) {
     }
 }
 
-/* 액션 함수, 호출할 때 특정 값을 넣으면 payload 키에 해당 값이 대입된다.
+/* 액션 함수, 호출할 때 특정 값을 넣으면 payload 키에 해당 값을 대입해줄 수 있다.
 여기에서는 해당 유저라고 가정하고 다룬다. */
 export const userLogin = (user) => ({type: "USER_LOGIN", payload: user})
 export const userLogOut = () => ({type: "USER_LOG_OUT"})

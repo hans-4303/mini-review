@@ -2,9 +2,11 @@
 
 import { combineReducers } from 'redux'
 import currentUser from './reducers/currentUser';
+import guest from './reducers/guest';
 
 const rootReducer = combineReducers({
-    currentUser
+    currentUser,
+    guest
 });
 
 export default rootReducer;

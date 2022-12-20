@@ -56,9 +56,9 @@ const Home = () => {
         <div>
         <Slider {...settings}>
           {/* {imageList.map((image) => (<div><img style={{width: "100%"}} src={require(`../img/${image}`)} alt="" /></div>))} */}
-          {imageList.map((image)=>( 
+          {imageList.map((image, index)=>( 
             /* 컨테이너 요소 하나 차이 때문에 배경이 화면에 안 보이게 됐다? */
-                <div>
+                <div key={index}>
                   <div 
                     style={{
                       width:"100%", 

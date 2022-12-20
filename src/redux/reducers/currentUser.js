@@ -13,8 +13,11 @@ function currentUser(state = initialState, action) {
         /* 구글 인증을 통해서 가져온 값은 객체 형태를 가진다.
         1) 받아온 값을 그대로 넣어주는 방법
         2) 필요한 값만 골라서 넣어주는 방법(가능하다면 이쪽이 좋다.) */
+
+        /* 어차피 계정 값을 통째로 받는다 생각하고 있으니까 */
         return action.payload;
       case "USER_LOG_OUT":
+        /* 계정 값을 전부 날리는 걸로 */
         return null;
       default:
         return state;

@@ -33,7 +33,7 @@ const Board = () => {
           </tr>
         ))}
         <tr>
-          {/* 글쓰기를 위한 버튼 */}
+          {/* 글쓰기를 위한 버튼, 글쓰기 페이지로 이동하기 */}
           {user && <button onClick={() => {navigate(`/board/writeform`)}}>글쓰기</button>}
         </tr>
       </table>

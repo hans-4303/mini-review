@@ -48,6 +48,12 @@ function board(state = initialState, action) {
       }
       boardId++;
       return state.concat(newBoard);
+    case "UPDATE_VIEW":
+      /* 보드 값을 받아오고, 해당 페이지 주소의 파라미터인 /:id와
+      비교한 후에 해당 board의 id를 올리거나,
+      조건이 맞지 않다면 내버려둔다. */
+      const viewBoard = state.map((board) => (board.boardId == action.payload ? {...board, view: board.view + 1} : board))
+      return viewBoard;
     default:
       return state;
   }
@@ -56,5 +62,6 @@ function board(state = initialState, action) {
 export const deleteBoard = (id) => ({ type: "DELETE_BOARD", payload: id });
 export const modifyBoard = (board) => ({type: "MODIFY_BOARD", payload: board});
 export const addBoard = (board) => ({type: "ADD_BOARD", payload: board})
+export const viewBoard = (board) => ({type: "UPDATE_VIEW", payload: board})
 
 export default board;

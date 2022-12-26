@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeLink from "../components/HomeLink";
-import { deleteBoard } from "../redux/reducers/board";
+import { deleteBoard, viewBoard } from "../redux/reducers/board";
 
 const BoardPage = () => {
   const { id } = useParams();
@@ -17,6 +18,16 @@ const BoardPage = () => {
   const boardFind = useSelector((state) =>
     state.board.find((board) => board.boardId == id)
   );
+
+  const dispatch = useDispatch();
+
+  /* 화면이 실행되자 마자 조회수를 1 올리기
+  리덕스를 통해서 페이지의 id 값을 전달하고, 해당 값을 가진 board의 view를 올리기
+  
+  하위 페이지에서 호출할 줄 알았다 생각하긴 했지만 동작하고 있다. */
+  useEffect(() => {
+    dispatch(viewBoard(id))
+  }, [])
 
   return (
     <div>

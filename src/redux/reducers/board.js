@@ -36,6 +36,18 @@ function board(state = initialState, action) {
       
       const editBoard = state.map((board) => (board.boardId == action.payload.boardId ? action.payload : board))
       return editBoard;
+    case "ADD_BOARD":
+      /* 새로운 보드 값을 받아와서 boardId 값을 부여한 후에 추가하기
+      payload를 통해서 Email, title, context를 추가하고,
+      redux에서는 boardId, view, like를 추가한다. */
+      const newBoard = {
+        ...action.payload,
+        boardId: boardId,
+        view: 0,
+        like: 0
+      }
+      boardId++;
+      return state.concat(newBoard);
     default:
       return state;
   }
@@ -43,5 +55,6 @@ function board(state = initialState, action) {
 
 export const deleteBoard = (id) => ({ type: "DELETE_BOARD", payload: id });
 export const modifyBoard = (board) => ({type: "MODIFY_BOARD", payload: board});
+export const addBoard = (board) => ({type: "ADD_BOARD", payload: board})
 
 export default board;

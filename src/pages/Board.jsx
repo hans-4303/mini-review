@@ -5,6 +5,8 @@ import HomeLink from "../components/HomeLink";
 
 const Board = () => {
   const boardList = useSelector((state) => (state.board))
+  /* 현재 유저를 state에서 따지기 */
+  const user = useSelector((state) => (state.currentUser))
   const navigate = useNavigate();
 
   const toBoardPage = (id) => {
@@ -30,6 +32,10 @@ const Board = () => {
             <td>{board.like}</td>
           </tr>
         ))}
+        <tr>
+          {/* 글쓰기를 위한 버튼 */}
+          {user && <button onClick={() => {navigate(`/board/writeform`)}}>글쓰기</button>}
+        </tr>
       </table>
       <HomeLink></HomeLink>
     </div>

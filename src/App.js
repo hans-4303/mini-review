@@ -9,6 +9,7 @@ import Guest from './pages/Guest';
 import LoginForm from './pages/LoginForm';
 import Board from './pages/Board';
 import BoardPage from './pages/BoardPage';
+import BoardModifyForm from './pages/BoardModifyForm';
 import BoardWriteForm from './pages/BoardWriteForm';
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route path='/loginform' element={<LoginForm></LoginForm>}></Route>
         <Route path='/board' element={<Board></Board>}></Route>
         <Route path='/board/:id' element={<BoardPage></BoardPage>}></Route>
-        <Route path='/board/modifyform' element={<BoardWriteForm></BoardWriteForm>}></Route>
+        <Route path='/board/modifyform' element={<BoardModifyForm></BoardModifyForm>}></Route>
+        <Route path='/board/writeform' element={<BoardWriteForm></BoardWriteForm>}></Route>
       </Routes>
     </div>
   );

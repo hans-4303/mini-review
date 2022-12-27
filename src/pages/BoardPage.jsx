@@ -77,7 +77,8 @@ const BoardPrint = ({board}) => {
       <p>{board.view}</p>
       <p>{board.like}</p>
       <hr></hr>
-      {boardComments.length > 0 ? boardComments.map((comment) => <div>{comment.text}</div>) : <p>코멘트가 없습니다</p>}
+      <CommentInput commentText={commentText} setCommentText={setCommentText} onAddComment={onAddComment}></CommentInput>
+      {boardComments.length > 0 ? (boardComments.map((comment) => <CommentBox comment={comment}></CommentBox>)) : <p>코멘트가 없습니다</p>}
     </div>
   );
 }

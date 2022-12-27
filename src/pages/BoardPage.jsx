@@ -1,9 +1,10 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeLink from "../components/HomeLink";
 import { deleteBoard, viewBoard } from "../redux/reducers/board";
+import { addComment } from "../redux/reducers/comment";
 
 const BoardPage = () => {
   const { id } = useParams();
@@ -45,6 +46,17 @@ const BoardPrint = ({board}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  /* comment state 들고 온 뒤 filter로 원하는 요소만 갖고 오기 */
+  const comments = useSelector((state) => state.comments);
+  const boardComments = comments.filter((comment) => (comment.boardId == board.boardId))
+  const userEmail = useSelector((state) => state.currentUser.email)
+
+  const [commentText, setCommentText] = useState('');
+
+  const onAddComment = () => {
+    dispatch(addComment({boardId: board.boardId, userEmail: userEmail, text: commentText}))
+  }
+
   const onDeleteBoard = (id) => {
     dispatch(deleteBoard(id));
     navigate('/board')
@@ -64,6 +76,28 @@ const BoardPrint = ({board}) => {
       <p>{board.content}</p>
       <p>{board.view}</p>
       <p>{board.like}</p>
+      <hr></hr>
+      {boardComments.length > 0 ? boardComments.map((comment) => <div>{comment.text}</div>) : <p>코멘트가 없습니다</p>}
+    </div>
+  );
+}
+
+/* 댓글 상자 컴포넌트 */
+const CommentBox = ({comment}) => {
+  return (
+    <div>
+      <h4>{comment.userEmail}</h4>
+      <p>{comment.text}</p>
+    </div>
+  );
+}
+
+/* 댓글 입력 컴포넌트 */
+const CommentInput = ({commentText, setCommentText, onAddComment}) => {
+  return (
+    <div>
+      <textarea name="" id="" cols="30" rows="10" value={commentText} onChange={(event) => {setCommentText(event.target.value)}}></textarea>
+      <button onClick={() => {onAddComment()}}>코멘트 작성</button>
     </div>
   );
 }

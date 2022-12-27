@@ -4,11 +4,13 @@ import { combineReducers } from 'redux'
 import currentUser from './reducers/currentUser';
 import guest from './reducers/guest';
 import board from './reducers/board';
+import comments from './reducers/comment';
 
 const rootReducer = combineReducers({
     currentUser,
     guest,
-    board
+    board,
+    comments
 });
 
 export default rootReducer;

@@ -49,12 +49,16 @@ const BoardPrint = ({board}) => {
   /* comment state 들고 온 뒤 filter로 원하는 요소만 갖고 오기 */
   const comments = useSelector((state) => state.comments);
   const boardComments = comments.filter((comment) => (comment.boardId == board.boardId))
-  const userEmail = useSelector((state) => state.currentUser.email)
+  /* const userEmail = useSelector((state) => state.currentUser.email)
+  이대로면 currentUser를 무조건 접근하게 되고, 로그인 하지 않아도 글을 볼 수 있는 요구사항과 달라지며
+  null 값을 참조하기 때문에 에러 발생
+  user의 값이 null이라면 댓글은 달 수 없어야 한다. */
+  const user = useSelector((state) => state.currentUser)
 
   const [commentText, setCommentText] = useState('');
 
   const onAddComment = () => {
-    dispatch(addComment({boardId: board.boardId, userEmail: userEmail, text: commentText}))
+    dispatch(addComment({boardId: board.boardId, userEmail: user.email, text: commentText}))
   }
 
   const onDeleteBoard = (id) => {
@@ -70,15 +74,20 @@ const BoardPrint = ({board}) => {
     <div>
       <p>{board.boardId}</p>
       <h2>{board.title}</h2>
-      <button onClick={() => {toModifyBoard({board})}}>수정</button>
-      <button onClick={() => {onDeleteBoard(board.boardId)}}>삭제</button>
+      {/* 로그인한 유저가 있고, 해당 이메일이 맞을 때 접근하기 */}
+      {user && user.email === board.userEmail ?
+        <>
+          <button onClick={() => {toModifyBoard({board})}}>수정</button>
+          <button onClick={() => {onDeleteBoard(board.boardId)}}>삭제</button>
+        </> :
+      <p>NOT YET</p>}
       <p>{board.userEmail}</p>
       <p>{board.content}</p>
       <p>{board.view}</p>
       <p>{board.like}</p>
       <hr></hr>
-      <CommentInput commentText={commentText} setCommentText={setCommentText} onAddComment={onAddComment}></CommentInput>
       {boardComments.length > 0 ? (boardComments.map((comment) => <CommentBox comment={comment}></CommentBox>)) : <p>코멘트가 없습니다</p>}
+      {user ? <CommentInput commentText={commentText} setCommentText={setCommentText} onAddComment={onAddComment}></CommentInput> : <button onClick={() => {navigate('/loginform')}}>로그인해주세요</button>}
     </div>
   );
 }

@@ -7,10 +7,11 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { userLogin } from "../redux/reducers/currentUser";
+import { addUserInfo } from "../redux/reducers/userInfoList";
 
 
 /* firebase.js를 전역으로 쓰지 않는다면 아마 이렇게,
@@ -18,6 +19,10 @@ getAuth에서도 app을 인수로 넣어준다. */
 /* import { app } from '../database/firebase'; */
 
 const LoginForm = () => {
+  /* 로그인했을 때 userInfo 값이 있는지 확인하기 위해 useInfoList 호출해보기,
+  이때 기본 리덕스는 데이터가 저장되지 않아서 호출했다. */
+  const userInfoList = useSelector((state) => state.userInfoList)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,6 +30,16 @@ const LoginForm = () => {
   -> 내가 개선한다면 차라리 useRef를 적용할 것 같다. */
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  /* 로그인했을 때 userInfo 값이 있는지 확인하는 메서드
+  값이 없다면 addUserInfo를 통해서 추가하기 */
+  const checkUserInfo = (email) => {
+    const checkUser = userInfoList.find((info) => (info.userEmail == email));
+    if(!checkUser) {
+      dispatch(addUserInfo(email))
+    }
+    /* return (checkUser ? '' : dispatch(addUserInfo(email))); */
+  }
 
   /* 회원가입을 위한 함수 */
   const signUpUser = () => {
@@ -61,6 +76,8 @@ const LoginForm = () => {
         console.log(user);
         dispatch(userLogin(user));
         // ...
+        /* 여기서 호출 */
+        checkUserInfo(email)
         navigate("/");
       })
       .catch((error) => {
@@ -89,6 +106,8 @@ const LoginForm = () => {
         // ...
         console.log(user);
         dispatch(userLogin(user));
+        /* 구글 로그인 */
+        checkUserInfo(user.email)
         navigate("/");
       })
       .catch((error) => {

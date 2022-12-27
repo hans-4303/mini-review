@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import HomeLink from "../components/HomeLink";
 import { deleteBoard, viewBoard } from "../redux/reducers/board";
 import { addComment } from "../redux/reducers/comment";
+import { addLikeBoards } from "../redux/reducers/userInfoList";
 
 const BoardPage = () => {
   const { id } = useParams();
@@ -70,6 +71,14 @@ const BoardPrint = ({board}) => {
     navigate('/board/modifyform', {state: board})
   }
 
+  /* 좋아요 메서드 */
+  const onAddLike = () => {
+    if(user) {
+      dispatch(addLikeBoards({userEmail: user.email, boardId: board.boardId, title: board.title}))
+    }
+    else return;
+  }
+
   return (
     <div>
       <p>{board.boardId}</p>
@@ -84,7 +93,7 @@ const BoardPrint = ({board}) => {
       <p>{board.userEmail}</p>
       <p>{board.content}</p>
       <p>{board.view}</p>
-      <p>{board.like}</p>
+      <p onClick={() => {onAddLike()}}>{board.like}</p>
       <hr></hr>
       {boardComments.length > 0 ? (boardComments.map((comment) => <CommentBox comment={comment}></CommentBox>)) : <p>코멘트가 없습니다</p>}
       {user ? <CommentInput commentText={commentText} setCommentText={setCommentText} onAddComment={onAddComment}></CommentInput> : <button onClick={() => {navigate('/loginform')}}>로그인해주세요</button>}

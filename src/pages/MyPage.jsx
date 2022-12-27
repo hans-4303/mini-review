@@ -8,10 +8,15 @@ const MyPage = () => {
 
   return (
     <div>
-      <div>
-        {userInfo.userEmail}
-        {userInfo.userEmail == user.email ? <p>OK</p> : <p>NOT YET</p>}
-      </div>
+      <h3>유저 페이지</h3>
+      {userInfo ? <p>{userInfo.userEmail}</p> : ""}
+
+      <h5>좋아요 리스트</h5>
+      <ul>
+        {userInfo.like.map((thing) => (
+          <li key={thing.boardId}>{thing.title}</li>
+        ))}
+      </ul>
       <HomeLink></HomeLink>
     </div>
   )

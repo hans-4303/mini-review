@@ -5,12 +5,14 @@ import currentUser from './reducers/currentUser';
 import guest from './reducers/guest';
 import board from './reducers/board';
 import comments from './reducers/comment';
+import userInfoList from './reducers/userInfoList';
 
 const rootReducer = combineReducers({
     currentUser,
     guest,
     board,
-    comments
+    comments,
+    userInfoList
 });
 
 export default rootReducer;

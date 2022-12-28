@@ -93,8 +93,8 @@ const BoardPrint = ({board}) => {
       <p>NOT YET</p>}
       <p>{board.userEmail}</p>
       <p>{board.content}</p>
-      <p>{board.view}</p>
-      <p onClick={() => {onAddLike()}}>{board.like}</p>
+      <p>조회수{board.view}</p>
+      <p onClick={() => {onAddLike()}}>좋아요{board.like.length}</p>
       <hr></hr>
       {boardComments.length > 0 ? (boardComments.map((comment) => <CommentBox comment={comment}></CommentBox>)) : <p>코멘트가 없습니다</p>}
       {user ? <CommentInput commentText={commentText} setCommentText={setCommentText} onAddComment={onAddComment}></CommentInput> : <button onClick={() => {navigate('/loginform')}}>로그인해주세요</button>}

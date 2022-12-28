@@ -29,7 +29,7 @@ const Board = () => {
             <td onClick={()=>{toBoardPage(board.boardId)}}>{board.title}</td>
             <td>{board.userEmail}</td>
             <td>{board.view}</td>
-            <td>{board.like}</td>
+            <td>{board.like.length}</td>
           </tr>
         ))}
         <tr>

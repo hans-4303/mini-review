@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import HomeLink from "../components/HomeLink";
-import { deleteBoard, viewBoard } from "../redux/reducers/board";
+import { addLikeUser, deleteBoard, viewBoard } from "../redux/reducers/board";
 import { addComment } from "../redux/reducers/comment";
 import { addLikeBoards } from "../redux/reducers/userInfoList";
 
@@ -75,8 +75,9 @@ const BoardPrint = ({board}) => {
   const onAddLike = () => {
     if(user) {
       dispatch(addLikeBoards({userEmail: user.email, boardId: board.boardId, title: board.title}))
+      dispatch(addLikeUser({boardId: board.boardId, userEmail: user.email}))
     }
-    else return;
+    else return alert("좋아요는 로그인 후에 할 수 있습니다");
   }
 
   return (

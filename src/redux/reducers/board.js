@@ -58,14 +58,19 @@ function board(state = initialState, action) {
       2) board의 like 값은 userEmail과 함께 다룰 배열 */
       const newLikeAddress = action.payload.userEmail;
       return state.map((board) =>
+        /* state의 각 board에 접근해서, 각 요소가 가진 boardId와 받아온 boardId를 비교하기 */
         board.boardId == action.payload.boardId
+          /* boardId가 같다면 아래의 객체를 호출하고, 그렇지 않다면 요소를 유지 */
           ? {
+              /* 스프레드로 해당 board의 키와 값을 펼치고 like를 수정 */
               ...board,
               /* like 키와 값은 board.like에서 값을 찾고, 있다면 이전 값 없다면 추가한 값 넣기 */
               like: board.like.find(
                 (boardLiked) => boardLiked == action.payload.userEmail
               )
-                ? board.like
+                /* find 한 값이 있다면 각 요소가 가진 like 배열의 요소를 따져서 userEmail이 같지 않은 요소를 걸러주고 */
+                ? board.like.filter((boardLike) => boardLike != action.payload.userEmail)
+                /* 값이 없다면 각 요소가 가진 like 배열에 받아온 userEmail을 추가하기 */
                 : board.like.concat(newLikeAddress),
             }
           : board

@@ -91,6 +91,7 @@ export const modifyBoard = (board) => ({
   payload: board,
 });
 export const addBoard = (board) => ({ type: "ADD_BOARD", payload: board });
+export const addLikeUser = (likedUser) => ({type: "ADD_LIKE_USER", payload: likedUser})
 export const viewBoard = (board) => ({ type: "UPDATE_VIEW", payload: board });
 
 export default board;
